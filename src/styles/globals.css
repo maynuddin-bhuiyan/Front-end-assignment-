@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global reset for default browser styles */
+* {
+  margin: 0;
+  /* Remove default margin */
+  padding: 0;
+  /* Remove default padding */
+  box-sizing: border-box;
+  /* Set box-sizing to border-box for consistent sizing */
+}
+
+/* Styling for anchor elements */
+a {
+  text-decoration: none;
+  /* Remove default underline from links */
+}
+
+ul,
+ol {
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none !important;
+}
+
+body {
+  background-color: white;
+  font-family: "Poppins", serif;
+}
+
+/* Remove the spinner (arrows) in most browsers */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove the spinner in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* Inter font family */
+.inte {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+}
+
+.main-btn {
+  @apply bg-button-primary hover:bg-transparent px-6 lg:px-12 py-2 lg:py-4 rounded smooth text-white hover:text-primary border border-primary;
+}
+
+.outline-btn {
+  @apply border border-button-primary hover:bg-button-primary-hover/80 px-6 lg:px-12 py-2 lg:py-4 rounded bg-transparent smooth hover:text-white;
+}
+
+.smooth {
+  @apply transition duration-300 ease-in-out;
+}
+
+.title {
+  @apply text-lg lg:text-4xl;
+}
+
+.input {
+  @apply border-b border-black/30 outline-none w-full py-2;
+}
+
+.label {
+  @apply text-sm lg:text-base !text-black/50;
+}
+
+.custom_input {
+  @apply border rounded px-3 py-3 bg-secondary focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary;
+}
+
+/* Custom scrollbar */
+/* Width */
+.custom-sidebar ::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* swiper-custom.css */
+.swiper-pagination-bullet {
+  width: 12px !important;
+  /* Default dot size */
+  height: 10px !important;
+  background: #ffffff !important;
+  /* Inactive dot color */
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.swiper-pagination-bullet-active {
+  width: 24px !important;
+  /* Active dot size */
+  height: 10px !important;
+  /* Active dot size */
+  background: #db4444 !important;
+  /* Active dot color */
+  border-radius: 12px !important;
+  /* Elliptical shape for active dots */
+}

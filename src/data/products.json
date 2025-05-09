@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Havic HV G-92 Gamepad",
+    "image": "/product-1.png",
+    "price": 2300,
+    "slug": "indian-sharee",
+    "title": "Havic HV G-92 Gamepad",
+    "rating": 5,
+    "reviews": 150,
+    "preview_price": 324
+  },
+  {
+    "id": 2,
+    "name": "Hoodie",
+    "image": "/product-2.png",
+    "price": 3200,
+    "slug": "hoodie",
+    "title": "Hoodie",
+    "rating": 4,
+    "reviews": 34,
+    "preview_price": 180
+  },
+  {
+    "id": 3,
+    "name": "Plazu",
+    "image": "/product-3.png",
+    "price": 1800,
+    "slug": "plazu",
+    "title": "Plazu",
+    "rating": 5,
+    "reviews": 92,
+    "preview_price": 120
+  },
+  {
+    "id": 4,
+    "name": "Jacket",
+    "image": "/product-4.png",
+    "price": 5500,
+    "slug": "jacket",
+    "title": "Jacket",
+    "rating": 5,
+    "reviews": 65,
+    "preview_price": 325
+  },
+  {
+    "id": 5,
+    "name": "Short Dress",
+    "image": "/product-2.png",
+    "price": 3200,
+    "slug": "short-dress",
+    "title": "Short Dress",
+    "rating": 5,
+  "new_product": "NEW",
+    "reviews": 50,
+    "preview_price": 234
+  },
+  {
+    "id": 6,
+    "name": "Half Sleeve Shirt",
+    "image": "/product-3.png",
+    "price": 3200,
+    "slug": "half-sleeve-shirt",
+    "title": "Half Sleeve Shirt",
+    "rating": 5,
+    "reviews": 65,
+    "preview_price": 325
+  },
+  {
+    "id": 7,
+    "name": "Woman Wearing Sari",
+    "image": "/product-4.png",
+    "price": 3200,
+    "slug": "woman-wearing-sari",
+    "title": "Woman Wearing Sari",
+    "rating": 4,
+   "new_product": "NEW",
+    "reviews": 34,
+    "preview_price": 180
+  },
+  {
+    "id": 8,
+    "name": "Checkered Shirt",
+    "image": "/product-5.png",
+    "price": 3200,
+    "slug": "checkered-shirt",
+    "title": "Checkered Shirt",
+    "rating": 5,
+    "reviews": 50,
+    "preview_price": 234
+  }
+]
