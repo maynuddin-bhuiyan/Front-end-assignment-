@@ -1,5 +1,5 @@
 
-import AddProductForm from "../add/_componennts/add-product-form";
+import AddProductForm from "../_componennts/add-product-form";
 
 export default function ProductPage() {
   

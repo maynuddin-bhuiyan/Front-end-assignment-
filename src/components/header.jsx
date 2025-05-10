@@ -113,7 +113,7 @@ export default function Header() {
                     />
                   </svg>
                 </div>
-                <div className="flex justify-center lg:gap-5 gap-3">
+                <div className="flex justify-center items-center lg:gap-5 gap-3">
                   <Link href={"/wish-list"}>
                     <Image
                       src={"/wishlist.svg"}
@@ -126,12 +126,12 @@ export default function Header() {
                     <Image
                       src={"/cart.svg"}
                       alt="wishlist"
-                      width={32}
-                      height={32}
+                      width={30}
+                      height={30}
                     />
                   </button>
                   <Link href={"/admin"}>
-                  <FaRegUser />
+                  <FaRegUser size={20} />
                   </Link>
                 </div>
 
