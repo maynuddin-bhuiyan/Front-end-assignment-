@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 import { FaRegRectangleXmark } from "react-icons/fa6";
 import { HiMiniBars3 } from "react-icons/hi2";
 import { CartDrawer } from "./cart-drawer";
@@ -129,6 +130,9 @@ export default function Header() {
                       height={32}
                     />
                   </button>
+                  <Link href={"/admin"}>
+                  <FaRegUser />
+                  </Link>
                 </div>
 
                 {/* mobile menu btn */}
