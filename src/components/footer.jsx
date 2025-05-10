@@ -205,7 +205,7 @@ export default function Footer() {
       <div>
         <p className="!text-secondary/30 text-sm lg:text-base py-3 text-center">
           {" "}
-          © Design by Codethinker. All rights reserved.
+          © Copyright Rimel 2022. All right reserved.
         </p>
       </div>
     </div>

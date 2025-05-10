@@ -1,6 +1,7 @@
 "use client"
 import fill_eye from "@/assets/icons/fill-eye.svg";
 import wishlist from "@/assets/icons/fill-heart.svg";
+import ProductQuickViewModal from "@/components/product-quick-view-modal";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -28,6 +29,7 @@ const showToast = async (title, quantity, isExisting) => {
 export default function ProductCard({ data }) {
   
    const [cartItems, setCartItems] = useState([]);
+   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -58,6 +60,12 @@ export default function ProductCard({ data }) {
     // Show antd notification
     showToast(data.title, quantity, isExisting);
   };
+
+  const handleQuickView = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsQuickViewOpen(true)
+  }
   
   
   const renderStars = () => {
@@ -81,7 +89,20 @@ export default function ProductCard({ data }) {
   };
 
   const router = useRouter();
+
+
+  // product details data for the modal
+  const productDetails = {
+    ...data,
+    regularPrice: data?.preview_price || Number.parseFloat(data?.price) + 1500,
+    specialPrice: data?.price,
+    ecomPrice: (Number.parseFloat(data?.price) - 150).toFixed(0),
+    brand: "Team",
+  }
+
+
   return (
+    <>
     <div
       className="w-[270px] lg:m-0 m-auto"
       onClick={() => router.push(`/product/${data?.slug}`)}
@@ -100,7 +121,7 @@ export default function ProductCard({ data }) {
         <div className="absolute top-3 right-2">
           <Image src={wishlist} alt="icon" width={30} height={30} />
         </div>
-        <div className="absolute top-12 right-2">
+        <div className="absolute top-12 right-2 cursor-pointer" onClick={handleQuickView}>
           <Image src={fill_eye} alt="icon" width={30} height={30} />
         </div>
         {data?.discount && (
@@ -124,7 +145,7 @@ export default function ProductCard({ data }) {
           Add to Cart
         </button>
       </div>
-      <h3 className="paragraph !text-black font-medium mt-2">{data?.title}</h3>
+      <h3 className="paragraph text-black font-medium mt-2 cursor-pointer hover:text-primary smooth">{data?.title}</h3>
       <div className="flex gap-1 items-center">
         <span className="paragraph">
           {"$"}
@@ -144,5 +165,13 @@ export default function ProductCard({ data }) {
         )}
       </div>
     </div>
+
+     {/* Quick Modal View */}
+      <ProductQuickViewModal
+        isOpen={isQuickViewOpen}
+        onClose={() => setIsQuickViewOpen(false)}
+        product={productDetails}
+      />
+    </>
   );
 }

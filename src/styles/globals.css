@@ -38,19 +38,6 @@ body {
   font-family: "Poppins", serif;
 }
 
-/* Remove the spinner (arrows) in most browsers */
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Remove the spinner in Firefox */
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-
 /* Inter font family */
 .inte {
   font-family: "Inter", sans-serif;
