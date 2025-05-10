@@ -1,21 +1,22 @@
 "use client"
 
-import { ArrowLeftOutlined, PlusOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   Button,
   Card,
   Checkbox,
+  Col,
   Divider,
   Form,
   Input,
   InputNumber,
-  Radio,
+  message,
+  Row,
   Select,
   Space,
   Table,
   Typography,
   Upload,
-  message,
 } from "antd"
 import Link from "next/link"
 import { useState } from "react"
@@ -25,27 +26,6 @@ const { Title, Text } = Typography
 const { TextArea } = Input
 const { Option } = Select
 
-const SIZES = [
-  { id: "xs", label: "XS" },
-  { id: "s", label: "S" },
-  { id: "m", label: "M" },
-  { id: "l", label: "L" },
-  { id: "xl", label: "XL" },
-]
-
-const COLORS = [
-  { id: "white", value: "#ffffff", label: "White" },
-  { id: "black", value: "#000000", label: "Black" },
-  { id: "gray", value: "#808080", label: "Gray" },
-  { id: "red", value: "#ff0000", label: "Red" },
-  { id: "blue", value: "#0000ff", label: "Blue" },
-  { id: "green", value: "#008000", label: "Green" },
-  { id: "yellow", value: "#ffff00", label: "Yellow" },
-  { id: "purple", value: "#800080", label: "Purple" },
-  { id: "pink", value: "#ffc0cb", label: "Pink" },
-  { id: "orange", value: "#ffa500", label: "Orange" },
-]
-
 const CATEGORIES = [
   { value: "electronics", label: "Electronics" },
   { value: "clothing", label: "Clothing" },
@@ -54,7 +34,7 @@ const CATEGORIES = [
   { value: "home", label: "Home & Kitchen" },
 ]
 
-export default function AddProductForm() {
+export default function AddProductPage() {
   const [form] = Form.useForm()
   const [formOutput, setFormOutput] = useState(null)
   const [fileList, setFileList] = useState([])
@@ -62,11 +42,10 @@ export default function AddProductForm() {
   // Watch form values for conditional rendering
   const hasVariants = Form.useWatch("hasVariants", form) || false
   const variantType = Form.useWatch("variantType", form) || "simple"
-  const selectedSizes = Form.useWatch("sizes", form) || []
-  const selectedColors = Form.useWatch("colors", form) || []
   const sku = Form.useWatch("sku", form) || ""
   const price = Form.useWatch("price", form) || 0
   const inventory = Form.useWatch("inventory", form) || 0
+  const variants = Form.useWatch("variants", form) || []
 
   // Handle image upload
   const handleUploadChange = ({ fileList: newFileList }) => {
@@ -93,21 +72,19 @@ export default function AddProductForm() {
 
   // Generate variant table data
   const generateVariantTableData = () => {
-    if (!selectedSizes.length || !selectedColors.length) return []
+    if (!variants || variants.length === 0) return []
 
-    return selectedSizes.flatMap((size) =>
-      selectedColors.map((color) => ({
-        key: `${size}-${color}`,
-        variant: {
-          size: SIZES.find((s) => s.id === size)?.label,
-          color: COLORS.find((c) => c.id === color)?.label,
-          colorValue: COLORS.find((c) => c.id === color)?.value,
-        },
-        sku: `${sku}-${size}-${color}`,
-        price: price,
-        stock: Math.floor(inventory / (selectedSizes.length * selectedColors.length)),
-      })),
-    )
+    return variants.map((variant, index) => ({
+      key: index,
+      variant: {
+        size: variant.size,
+        color: variant.color,
+        colorValue: variant.color,
+      },
+      sku: `${sku}-${variant.size}-${variant.color}`.replace(/\s+/g, "-").toLowerCase(),
+      price: variant.price || price,
+      stock: variant.stock || Math.floor(inventory / variants.length),
+    }))
   }
 
   // Variant table columns
@@ -120,18 +97,7 @@ export default function AddProductForm() {
         <Space>
           <span>{variant.size}</span>
           <span>/</span>
-          <Space>
-            <div
-              style={{
-                width: 12,
-                height: 12,
-                borderRadius: "50%",
-                backgroundColor: variant.colorValue,
-                border: "1px solid #d9d9d9",
-              }}
-            />
-            <span>{variant.color}</span>
-          </Space>
+          <span>{variant.color}</span>
         </Space>
       ),
     },
@@ -184,8 +150,7 @@ export default function AddProductForm() {
             inventory: 0,
             hasVariants: false,
             variantType: "simple",
-            sizes: [],
-            colors: [],
+            variants: [],
           }}
         >
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
@@ -282,7 +247,7 @@ export default function AddProductForm() {
           <Form.Item name="hasVariants" valuePropName="checked">
             <Checkbox>
               <Space align="start">
-                <span>This product has multiple variants</span>
+                <span>This product has variants</span>
                 <Text type="secondary" style={{ display: "block" }}>
                   Enable if your product comes in different sizes, colors, etc.
                 </Text>
@@ -292,73 +257,60 @@ export default function AddProductForm() {
 
           {hasVariants && (
             <div style={{ marginLeft: 24, borderLeft: "1px solid #f0f0f0", paddingLeft: 24 }}>
-              <Form.Item name="variantType" label="Variant Type">
-                <Radio.Group>
-                  <Space direction="vertical">
-                    <Radio value="simple">Simple (Size OR Color)</Radio>
-                    <Radio value="matrix">Matrix (Size AND Color combinations)</Radio>
-                  </Space>
-                </Radio.Group>
-              </Form.Item>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
-                <Form.Item
-                  name="sizes"
-                  label={
-                    <Space>
-                      <FaTshirt /> Available Sizes
-                    </Space>
-                  }
-                  rules={[{ required: hasVariants, message: "Please select at least one size", type: "array", min: 1 }]}
-                >
-                  <Checkbox.Group style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                    {SIZES.map((size) => (
-                      <Checkbox key={size.id} value={size.id}>
-                        {size.label}
-                      </Checkbox>
+              <Form.List name="variants">
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map(({ key, name, ...restField }) => (
+                      <Row key={key} gutter={16} style={{ marginBottom: 16 }}>
+                        <Col span={8}>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "size"]}
+                            rules={[{ required: true, message: "Size is required" }]}
+                          >
+                            <Input prefix={<FaTshirt />} placeholder="Size (e.g., Small, Medium, Large)" />
+                          </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "color"]}
+                            rules={[{ required: true, message: "Color is required" }]}
+                          >
+                            <Input prefix={<FaPalette />} placeholder="Color (e.g., Red, Blue, Black)" />
+                          </Form.Item>
+                        </Col>
+                        <Col span={3}>
+                          <Form.Item {...restField} name={[name, "price"]} label="Price">
+                            <InputNumber style={{ width: "100%" }} placeholder="Optional" min={0.01} precision={2} />
+                          </Form.Item>
+                        </Col>
+                        <Col span={3}>
+                          <Form.Item {...restField} name={[name, "stock"]} label="Stock">
+                            <InputNumber style={{ width: "100%" }} placeholder="Optional" min={0} precision={0} />
+                          </Form.Item>
+                        </Col>
+                        <Col span={2} style={{ display: "flex", alignItems: "center" }}>
+                          <Button type="text" danger icon={<MinusCircleOutlined />} onClick={() => remove(name)} />
+                        </Col>
+                      </Row>
                     ))}
-                  </Checkbox.Group>
-                </Form.Item>
+                    <Form.Item>
+                      <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                        Add Variant
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
 
-                <Form.Item
-                  name="colors"
-                  label={
-                    <Space>
-                      <FaPalette /> Available Colors
-                    </Space>
-                  }
-                  rules={[
-                    { required: hasVariants, message: "Please select at least one color", type: "array", min: 1 },
-                  ]}
-                >
-                  <Checkbox.Group style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                    {COLORS.map((color) => (
-                      <Checkbox key={color.id} value={color.id}>
-                        <Space>
-                          <div
-                            style={{
-                              width: 16,
-                              height: 16,
-                              borderRadius: "50%",
-                              backgroundColor: color.value,
-                              border: "1px solid #d9d9d9",
-                            }}
-                          />
-                          {color.label}
-                        </Space>
-                      </Checkbox>
-                    ))}
-                  </Checkbox.Group>
-                </Form.Item>
-              </div>
-
-              {variantType === "matrix" && selectedSizes.length > 0 && selectedColors.length > 0 && (
+              {variants.length > 0 && (
                 <div style={{ marginTop: 16 }}>
                   <Card
-                    title="Generated Variants"
+                    title="Product Variants"
                     size="small"
                     type="inner"
-                    extra={<Text type="secondary">{selectedSizes.length * selectedColors.length} variants</Text>}
+                    extra={<Text type="secondary">{variants.length} variants</Text>}
                   >
                     <Table
                       dataSource={generateVariantTableData()}
