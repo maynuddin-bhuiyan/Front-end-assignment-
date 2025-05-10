@@ -1,26 +1,23 @@
 "use client"
 
-import { ArrowLeftOutlined, MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   Button,
   Card,
   Checkbox,
-  Col,
   Divider,
   Form,
   Input,
   InputNumber,
   message,
-  Row,
   Select,
   Space,
-  Table,
   Typography,
-  Upload,
+  Upload
 } from "antd"
 import Link from "next/link"
 import { useState } from "react"
-import { FaBox, FaList, FaPalette, FaShoppingCart, FaTag, FaTshirt, FaWeightHanging } from "react-icons/fa"
+import { FaBox, FaList, FaShoppingCart, FaTag, FaWeightHanging } from "react-icons/fa"
 
 const { Title, Text } = Typography
 const { TextArea } = Input
@@ -40,12 +37,8 @@ export default function AddProductPage() {
   const [fileList, setFileList] = useState([])
 
   // Watch form values for conditional rendering
-  const hasVariants = Form.useWatch("hasVariants", form) || false
-  const variantType = Form.useWatch("variantType", form) || "simple"
-  const sku = Form.useWatch("sku", form) || ""
-  const price = Form.useWatch("price", form) || 0
-  const inventory = Form.useWatch("inventory", form) || 0
-  const variants = Form.useWatch("variants", form) || []
+  // const hasVariants = Form.useWatch("hasVariants", form) || false
+
 
   // Handle image upload
   const handleUploadChange = ({ fileList: newFileList }) => {
@@ -70,56 +63,7 @@ export default function AddProductPage() {
     message.success("Product added successfully!")
   }
 
-  // Generate variant table data
-  const generateVariantTableData = () => {
-    if (!variants || variants.length === 0) return []
-
-    return variants.map((variant, index) => ({
-      key: index,
-      variant: {
-        size: variant.size,
-        color: variant.color,
-        colorValue: variant.color,
-      },
-      sku: `${sku}-${variant.size}-${variant.color}`.replace(/\s+/g, "-").toLowerCase(),
-      price: variant.price || price,
-      stock: variant.stock || Math.floor(inventory / variants.length),
-    }))
-  }
-
-  // Variant table columns
-  const variantColumns = [
-    {
-      title: "Variant",
-      dataIndex: "variant",
-      key: "variant",
-      render: (variant) => (
-        <Space>
-          <span>{variant.size}</span>
-          <span>/</span>
-          <span>{variant.color}</span>
-        </Space>
-      ),
-    },
-    {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      render: (price) => `$${price.toFixed(2)}`,
-      align: "right",
-    },
-    {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-      align: "right",
-    },
-  ]
+ 
 
   // Upload button
   const uploadButton = (
@@ -255,75 +199,7 @@ export default function AddProductPage() {
             </Checkbox>
           </Form.Item>
 
-          {hasVariants && (
-            <div style={{ marginLeft: 24, borderLeft: "1px solid #f0f0f0", paddingLeft: 24 }}>
-              <Form.List name="variants">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <Row key={key} gutter={16} style={{ marginBottom: 16 }}>
-                        <Col span={8}>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "size"]}
-                            rules={[{ required: true, message: "Size is required" }]}
-                          >
-                            <Input prefix={<FaTshirt />} placeholder="Size (e.g., Small, Medium, Large)" />
-                          </Form.Item>
-                        </Col>
-                        <Col span={8}>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "color"]}
-                            rules={[{ required: true, message: "Color is required" }]}
-                          >
-                            <Input prefix={<FaPalette />} placeholder="Color (e.g., Red, Blue, Black)" />
-                          </Form.Item>
-                        </Col>
-                        <Col span={3}>
-                          <Form.Item {...restField} name={[name, "price"]} label="Price">
-                            <InputNumber style={{ width: "100%" }} placeholder="Optional" min={0.01} precision={2} />
-                          </Form.Item>
-                        </Col>
-                        <Col span={3}>
-                          <Form.Item {...restField} name={[name, "stock"]} label="Stock">
-                            <InputNumber style={{ width: "100%" }} placeholder="Optional" min={0} precision={0} />
-                          </Form.Item>
-                        </Col>
-                        <Col span={2} style={{ display: "flex", alignItems: "center" }}>
-                          <Button type="text" danger icon={<MinusCircleOutlined />} onClick={() => remove(name)} />
-                        </Col>
-                      </Row>
-                    ))}
-                    <Form.Item>
-                      <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                        Add Variant
-                      </Button>
-                    </Form.Item>
-                  </>
-                )}
-              </Form.List>
-
-              {variants.length > 0 && (
-                <div style={{ marginTop: 16 }}>
-                  <Card
-                    title="Product Variants"
-                    size="small"
-                    type="inner"
-                    extra={<Text type="secondary">{variants.length} variants</Text>}
-                  >
-                    <Table
-                      dataSource={generateVariantTableData()}
-                      columns={variantColumns}
-                      size="small"
-                      pagination={false}
-                      scroll={{ y: 240 }}
-                    />
-                  </Card>
-                </div>
-              )}
-            </div>
-          )}
+          
 
           <Divider />
 
