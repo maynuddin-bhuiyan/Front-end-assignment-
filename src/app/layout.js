@@ -1,10 +1,12 @@
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import "@/styles/globals.css";
+// import Footer from "@/components/footer";
+// import Header from "@/components/header";
+import "../styles/globals.css";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation"; // Optional 
 import "swiper/css/pagination"; // Optional  
+import Footer from "../components/footer";
+import Header from "../components/header";
 
 // Metadata object
 export const metadata = {

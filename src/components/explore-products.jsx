@@ -1,5 +1,5 @@
 "use client"
-import products from '@/data/products.json';
+import products from '../data/products.json';
 import Breadcrumb from './reuseable/bread-crumb';
 import ProductCard from './reuseable/product-card';
 

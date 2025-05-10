@@ -1,10 +1,10 @@
 "use client"
-import fill_eye from "@/assets/icons/fill-eye.svg";
-import wishlist from "@/assets/icons/fill-heart.svg";
-import ProductQuickViewModal from "@/components/product-quick-view-modal";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import fill_eye from "../../../assets/icons/fill-eye.svg";
+import wishlist from "../../../assets/icons/fill-heart.svg";
+import ProductQuickViewModal from "../../product-quick-view-modal";
 
 
 // Dynamic import to avoid SSR issues

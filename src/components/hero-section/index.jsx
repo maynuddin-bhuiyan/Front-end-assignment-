@@ -1,8 +1,8 @@
 "use client";
-import bannerImg from "@/assets/images/banner.jpg";
 import Image from "next/image";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import bannerImg from "../../assets/images/banner.jpg";
 import CategoryList from "../reuseable/category-list";
 
 export default function HeroSection() {

@@ -1,6 +1,6 @@
-import DetailHeroSection from "@/components/detail-hero-section";
-import HeaderBreadCrumb from "@/components/reuseable/header-break-crumb";
-import productData from "@/data/products.json";
+import DetailHeroSection from "../../../components/detail-hero-section";
+import HeaderBreadCrumb from "../../../components/reuseable/header-break-crumb";
+import productData from "../../../data/products.json";
 
 export default function ProductDetail({ params }) {
   const {slug} = params;

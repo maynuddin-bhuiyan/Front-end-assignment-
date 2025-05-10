@@ -6,16 +6,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { MdArrowForwardIos, MdOutlineArrowBackIosNew } from "react-icons/md";
 
-import detail_img_1 from "@/assets/images/detail-img-1.png";
-import detail_img_2 from "@/assets/images/detail-img-2.png";
-import detail_img_3 from "@/assets/images/detail-img-3.png";
-import detail_img_4 from "@/assets/images/detail-img-4.png";
-import detail_img from "@/assets/images/detail-img.png";
+import detail_img_1 from "../../assets/images/detail-img-1.png";
+import detail_img_2 from "../../assets/images/detail-img-2.png";
+import detail_img_3 from "../../assets/images/detail-img-3.png";
+import detail_img_4 from "../../assets/images/detail-img-4.png";
+import detail_img from "../../assets/images/detail-img.png";
 
-import { cn } from "@/lib/utils";
 import { Button } from "antd";
 import Image from "next/image";
 import { FaHeart, FaMinus, FaPlus, FaTruck } from "react-icons/fa6";
+import { cn } from "../../lib/utils";
 
 const detailImages = [
   detail_img,

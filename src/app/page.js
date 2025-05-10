@@ -1,5 +1,5 @@
-import ExplorepProducts from "@/components/explore-products";
-import HeroSection from "@/components/hero-section";
+import ExplorepProducts from "../components/explore-products";
+import HeroSection from "../components/hero-section";
 
 
 const Home = () => {

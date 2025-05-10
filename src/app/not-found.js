@@ -1,5 +1,5 @@
-import HeaderBreadCrumb from "@/components/reuseable/header-break-crumb";
 import Link from "next/link";
+import HeaderBreadCrumb from "../components/reuseable/header-break-crumb";
 
 export default function NotFound() {
   const breadcrumbItems = [{ title: "Home" }, { title: "404 Error" }];
